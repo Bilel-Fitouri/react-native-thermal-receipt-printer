@@ -191,7 +191,10 @@ public class NetPrinterAdapter implements PrinterAdapter {
         }
 
         try {
-            Socket socket = new Socket(netPrinterDeviceId.getHost(), netPrinterDeviceId.getPort());
+            // Socket socket = new Socket(netPrinterDeviceId.getHost(), netPrinterDeviceId.getPort());
+            int timeoutMs = 5000; // 5 secondes de timeout
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(netPrinterDeviceId.getHost(), netPrinterDeviceId.getPort()), timeoutMs);
             if (socket.isConnected()) {
                 closeConnectionIfExists();
                 this.mSocket = socket;
